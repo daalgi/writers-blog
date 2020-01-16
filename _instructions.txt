@@ -1,0 +1,5 @@
+cd cs\training
+create-react-app writers-blog
+yarn add react-router-dom
+cd writers-blog
+code .
