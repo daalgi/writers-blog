@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Layout from './Layout'
 import Writers from './Writers'
+import Writer from './Writers/Writer'
 import { NotFound } from './Errors'
 
 
@@ -13,7 +14,6 @@ export default class extends React.Component {
 
     async componentDidMount() {
         const writers = await (await fetch('http://localhost:3004/writers?_embed=texts')).json()
-        //const texts = await (await fetch('http://localhost:3004/texts')).json()
         this.setState({ writers })
     }
 
@@ -25,10 +25,18 @@ export default class extends React.Component {
                 <Layout writers={ writers }>
                     <Switch>
                         <Route exact path="/"><div>Home</div></Route>
-                        <Route path="/writers" render={ 
+                        <Route exact path="/writers" render={ 
                             props => <Writers { ...props } writers={ writers } /> 
                         } />
-                        <Route component={NotFound}/>
+                        <Route path='/writers/:writerId' render={
+                            props => {
+                                const writer = writers.find(({ id }) => id === props.match.params.writerId)
+                                
+                                if(!writer) return <NotFound />
+                                
+                                return <Writer { ...props } { ...writer } />
+                            } } />
+                        <Route component={ NotFound }/>
                     </Switch>                    
 
                 </Layout>
