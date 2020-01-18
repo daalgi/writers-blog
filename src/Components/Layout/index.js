@@ -3,11 +3,17 @@ import { Link, withRouter } from 'react-router-dom'
 import {
     AppBar, Toolbar, Drawer, CssBaseline,
     MenuList, MenuItem,
-    IconButton, Typography, Hidden
+    IconButton, Typography, Hidden, createMuiTheme
 } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Menu } from '@material-ui/icons'
 
+
+const theme = createMuiTheme({
+    palette: {
+        type: "dark"
+    }
+})
 
 const drawerWidth = 240;
 
@@ -90,7 +96,7 @@ const Layout = props => {
     )
 
     return (
-        <Fragment>
+        <ThemeProvider theme={theme}>
             <CssBaseline />
             <div className={classes.root}>
 
@@ -142,10 +148,10 @@ const Layout = props => {
                 </nav>
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    {children}
+                    { children }
                 </main>
             </div>
-        </Fragment>
+        </ThemeProvider>
     )
 }
 
