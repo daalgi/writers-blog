@@ -3,3 +3,25 @@ create-react-app writers-blog
 yarn add react-router-dom
 cd writers-blog
 code .
+
+yarn start
+
+// Library to access data like a local api
+// useful for testing with real data
+yarn add --dev json-server
+
+// Create store.json with the data for the app
+// and run the local server
+node_modules\.bin\json-server --watch store.json --port 3004
+
+// Requests to that server (already running in the background),
+// for instance:
+// (Note: curl must have installed, which is not by default in W7)
+curl localhost:3004/writers
+
+// Update dependencies to the last version automatically
+yarn upgrade --lastest
+
+// Install material-ui library
+yarn add @material-ui/core
+yarn add @material-ui/icons
